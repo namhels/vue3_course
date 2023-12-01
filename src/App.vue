@@ -1,7 +1,13 @@
 <template>
 	<div class="app">
-		<PostForm @create="createPost" />
-		<PostList v-bind:posts="posts" />
+		<h1>Posts page</h1>
+		<MyButton @click="showDialog" class="btn">
+			Create post
+		</MyButton>
+		<MyDialog v-model:show="dialogVisible">
+			<PostForm @create="createPost" />
+		</MyDialog>
+		<PostList :posts="posts" @remove="removePost" />
 	</div>
 </template>
 
@@ -12,7 +18,8 @@ import PostList from "./components/PostList"
 export default {
 	name: "App",
 	components: {
-		PostForm, PostList,
+		PostForm,
+		PostList,
 	},
 	data() {
 		return {
@@ -22,12 +29,20 @@ export default {
 				{ id: 3, title: "Vue", body: "Post description 3" },
 				{ id: 4, title: "Work", body: "Post description 4" },
 			],
+			dialogVisible: false,
 		}
 	},
 	methods: {
-		createPost(post) { 
+		createPost(post) {
 			this.posts.push(post);
+			this.dialogVisible = false;
 		},
+		removePost(post) {
+			this.posts = this.posts.filter(p => p.id !== post.id)
+		},
+		showDialog() {
+			this.dialogVisible = true;
+		}
 	}
 }
 </script>
@@ -38,8 +53,11 @@ export default {
 	margin: 0;
 	box-sizing: border-box;
 }
-
 .app {
 	padding: 30px;
+}
+.btn {
+	margin-top: 15px;
+	margin-bottom: 15px;
 }
 </style>

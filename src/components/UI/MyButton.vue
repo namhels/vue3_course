@@ -13,9 +13,9 @@
 <style scoped>
 .btn {
 	padding: 5px 20px;
-	background: none;
-	border: 2px solid teal;
+	background: white;
+	border: 2px solid plum;
 	border-radius: 5px;
-	color: teal;
+	color: plum;
 }
 </style>

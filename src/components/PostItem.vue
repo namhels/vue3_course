@@ -5,7 +5,7 @@
 			<div><strong>Discription:</strong>{{ post.body }}</div>
 		</div>
 		<div class="post__buttons">
-			<MyButton @click="$emit('remove', post)">Delete</MyButton>
+			<MyButton @click="$emit('remove', post)" class="btn">Delete</MyButton>
 		</div>
 	</div>
 </template>
@@ -30,5 +30,8 @@ export default {
 	padding: 15px;
 	border: 2px solid turquoise;
 	border-radius: 10px;
+}
+.btn {
+	margin-left: 12px;
 }
 </style>

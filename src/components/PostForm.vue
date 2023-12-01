@@ -1,9 +1,9 @@
 <template>
 	<form @submit.prevent class="form">
 		<h4>Post create</h4>
-		<input v-bind:value="post.title" @input="post.title = $event.target.value" class="input" type="text" placeholder="Name" />
-		<input v-bind:value="post.body" @input="post.body = $event.target.value" class="input" type="text" placeholder="Description" />
-		<button class="btn">Create</button>
+		<input v-model="post.title" class="input" type="text" placeholder="Name" />
+		<input v-model="post.body" class="input" type="text" placeholder="Description" />
+		<MyButton @click="createPost" class="btn">Create</MyButton>
 	</form>
 </template>
 
@@ -12,10 +12,21 @@ export default {
 	data() {
 		return {
 			post: {
+				id: "",
 				title: "",
 				body: "",
 			}
 		}
+	},
+	methods: {
+		createPost() {
+			this.post.id = Date.now()
+			this.$emit('create', this.post)
+			this.post = {
+				title: "",
+				body: "",
+			}
+		},
 	}
 }
 </script>
@@ -35,12 +46,7 @@ export default {
 }
 
 .btn {
-	margin-top: 15px;
 	align-self: flex-end;
-	padding: 5px 20px;
-	background: none;
-	border: 2px solid teal;
-	border-radius: 5px;
-	color: teal;
+	margin-top: 15px;
 }
 </style>

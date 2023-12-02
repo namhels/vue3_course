@@ -5,12 +5,12 @@
 			<MyButton @click="showDialog">
 				Create post
 			</MyButton>
-			<MySelect v-model="selectedSort"/>
+			<MySelect v-model="selectedSort" :options="sortOptions" />
 		</div>
 		<MyDialog v-model:show="dialogVisible">
 			<PostForm @create="createPost" />
 		</MyDialog>
-		<PostList :posts="posts" @remove="removePost" v-if="!isPostLoading" />
+		<PostList :posts="sortedPosts" @remove="removePost" v-if="!isPostLoading" />
 		<div v-else>Loading...</div>
 	</div>
 </template>
@@ -32,6 +32,10 @@ export default {
 			dialogVisible: false,
 			isPostLoading: false,
 			selectedSort: "",
+			sortOptions: [
+				{ value: "title", name: "By name" },
+				{ value: "body", name: "By content" },
+			],
 		}
 	},
 	methods: {
@@ -59,7 +63,20 @@ export default {
 	},
 	mounted() {
 		this.fetchPosts()
-	}
+	},
+	computed: {
+		sortedPosts() {
+			return [...this.posts].sort((p1, p2) => p1[this.selectedSort]?.localeCompare(p2[this.selectedSort]))
+		},
+	},
+
+	// watch: {
+	// 	selectedSort(newValue) {
+	// 		this.posts.sort((p1, p2) => {
+	// 			return p1[newValue]?.localeCompare(p2[newValue])
+	// 		})
+	// 	}
+	// }
 }
 </script>
 
@@ -73,6 +90,7 @@ export default {
 .app {
 	padding: 30px;
 }
+
 .create__btn {
 	display: flex;
 	justify-content: space-between;

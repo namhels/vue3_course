@@ -1,7 +1,7 @@
 <template>
-	<select :v-on="modelValue" @change="changeOption">
+	<select :v-model="modelValue" @change="changeOption">
 		<option disabled value="">Select from list</option>
-		<option v-for="option in options" :key="option.value" value="option.value">
+		<option v-for="option in options" :key="option.value" :value="option.value">
 			{{ option.name }}
 		</option>
 	</select>

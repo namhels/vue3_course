@@ -1,5 +1,5 @@
 <template>
-	<select :v-model="modelValue" @change="changeOption">
+	<select :v-model="modelValue" @change="changeOption" class="select">
 		<option disabled value="">Select from list</option>
 		<option v-for="option in options" :key="option.value" :value="option.value">
 			{{ option.name }}
@@ -27,4 +27,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.select {
+	padding: 10px 15px;
+	border: 2px solid plum;
+	border-radius: 5px;
+	cursor: pointer;
+}
+</style>

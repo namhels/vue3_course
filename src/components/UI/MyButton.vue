@@ -17,5 +17,6 @@
 	border: 2px solid plum;
 	border-radius: 5px;
 	color: plum;
+	cursor: pointer;
 }
 </style>

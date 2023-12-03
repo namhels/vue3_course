@@ -1,8 +1,10 @@
 <template>
-  <Navbar></Navbar>
+  <div class="app__wrapper">
+    <Navbar></Navbar>
   <div class="app">
     <RouterView></RouterView>
   </div>
+  </div>  
 </template>
 
 <script>
@@ -17,7 +19,10 @@ export default { components: { Navbar } };
   margin: 0;
   box-sizing: border-box;
 }
-
+.app__wrapper {
+  min-height: 100vh;
+  background-color: #fbe4d7;
+}
 .app {
   padding: 30px;
 }

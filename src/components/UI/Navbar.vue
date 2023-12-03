@@ -1,6 +1,6 @@
 <template>
 	<div class="navbar">
-		<div @click="$router.push('/')">SuperVue</div>
+		<h2 @click="$router.push('/')" class="logo">SuperVue</h2>
 		<div class="navbar__btns">
 			<MyButton @click="$router.push('/posts')">Posts</MyButton>
 			<MyButton @click="$router.push('/about')" style="margin-left: 20px;">Tyger</MyButton>
@@ -19,9 +19,12 @@
 	display: flex;
 	align-items: center;
 	padding: 0 30px;
-	height: 50px;
+	height: 75px;
 	background-color: aquamarine;
 	box-shadow: 2px 2px 4px grey;
+}
+.logo {
+	cursor: pointer;
 }
 .navbar__btns {
 	margin-left: auto;

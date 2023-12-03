@@ -40,6 +40,6 @@
 	border: 2px solid turquoise;
 	border-radius: 12px;
 	min-height: 50px;
-	min-width: 300px;
+	min-width: 500px;
 }
 </style>

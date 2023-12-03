@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="main__page">
     <h1>Welcome</h1>
-    <p>
+    <p class="text">
       Those hours, that with gentle work did frame<br />
       The lovely gaze where every eye doth dwell,<br />
       Will play the tyrants to the very same<br />
@@ -27,4 +27,18 @@
 export default {};
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.main__page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: fantasy;
+  text-shadow:
+  1px 1px 1px red,
+  2px 2px 1px red;
+}
+.text {
+  margin-top: 30px;
+}
+</style>

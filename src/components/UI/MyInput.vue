@@ -21,7 +21,11 @@
 	width: 100%;
 	margin-top: 15px;
 	padding: 10px 15px;
+	color: plum;
 	border: 2px solid plum;
 	border-radius: 5px;
+}
+.input::placeholder {
+  color: plum;
 }
 </style>

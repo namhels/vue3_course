@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="about__page">
     <h2>THE TYGER</h2>
-    <p>
+    <p class="text">
       Tyger Tyger, burning bright,<br />
       In the forests of the night;<br />
       What immortal hand or eye,<br />
@@ -39,4 +39,18 @@
 export default {};
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.about__page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: fantasy;
+  text-shadow:
+  1px 1px 1px red,
+  2px 2px 1px red;
+}
+.text {
+  margin-top: 30px;
+}
+</style>

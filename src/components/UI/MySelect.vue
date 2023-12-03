@@ -30,6 +30,7 @@ export default {
 <style scoped>
 .select {
   padding: 10px 15px;
+  color: plum;
   border: 2px solid plum;
   border-radius: 5px;
   cursor: pointer;

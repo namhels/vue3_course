@@ -6,6 +6,9 @@
       <MyButton @click="$router.push('/about')" style="margin-left: 20px"
         >Tyger</MyButton
       >
+      <MyButton @click="$router.push('/store')" style="margin-left: 20px"
+        >Store</MyButton
+      >
     </div>
   </div>
 </template>

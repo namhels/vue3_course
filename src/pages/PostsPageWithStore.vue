@@ -1,6 +1,5 @@
 <template>
   <div>
-		<h1>{{ $store.state.likes }}</h1>
     <h1>Posts page</h1>
     <MyInput v-focus v-model="searchQuery" placeholder="Search..." />
     <div class="create__btn">

@@ -1,10 +1,10 @@
 <template>
   <div>
     <h1>Posts page</h1>
-    <MyInput v-focus v-model="searchQuery" placeholder="Search..." />
+    <!-- <MyInput v-focus v-model="searchQuery" placeholder="Search..." /> -->
     <div class="create__btn">
       <MyButton @click="showDialog"> Create post </MyButton>
-      <MySelect v-model="selectedSort" :options="sortOptions" />
+      <!-- <MySelect v-model="selectedSort" :options="sortOptions" /> -->
     </div>
     <MyDialog v-model:show="dialogVisible">
       <PostForm @create="createPost" />
@@ -27,9 +27,10 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 import PostForm from '@/components/PostForm';
 import PostList from '@/components/PostList';
+import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
 
 export default {
   name: 'App',
@@ -39,21 +40,19 @@ export default {
   },
   data() {
     return {
-      posts: [],
       dialogVisible: false,
-      isPostLoading: false,
-      selectedSort: '',
-      searchQuery: '',
-      page: 1,
-      limit: 10,
-      totalPages: 0,
-      sortOptions: [
-        { value: 'title', name: 'By name' },
-        { value: 'body', name: 'By content' }
-      ]
     };
   },
   methods: {
+    ...mapMutations({
+      setPage: 'post/setPage',
+      setSearchQuery: 'post/setSearchQuery',
+      setSelectedSort: 'post/setSelectedSort',
+    }),
+    ...mapActions({
+      loadMorePosts: 'post/loadMorePosts',
+      fetchPosts: 'post/fetchPosts'
+    }),
     createPost(post) {
       this.posts.unshift(post);
       this.dialogVisible = false;
@@ -64,79 +63,25 @@ export default {
     showDialog() {
       this.dialogVisible = true;
     },
-    // changePage(pageNumber) {
-    // 	this.page = pageNumber;
-    // },
-    async fetchPosts() {
-      try {
-        this.isPostLoading = true;
-        const response = await axios.get(
-          'https://jsonplaceholder.typicode.com/posts',
-          {
-            params: {
-              _page: this.page,
-              _limit: this.limit
-            }
-          }
-        );
-        this.totalPages = Math.ceil(
-          response.headers['x-total-count'] / this.limit
-        );
-        this.posts = response.data;
-      } catch (error) {
-        alert('Error: ' + error);
-      } finally {
-        this.isPostLoading = false;
-      }
-    },
-    async loadMorePosts() {
-      try {
-        this.page += 1;
-        const response = await axios.get(
-          'https://jsonplaceholder.typicode.com/posts',
-          {
-            params: {
-              _page: this.page,
-              _limit: this.limit
-            }
-          }
-        );
-        this.totalPages = Math.ceil(
-          response.headers['x-total-count'] / this.limit
-        );
-        this.posts = [...this.posts, ...response.data];
-      } catch (error) {
-        alert('Error: ' + error);
-      }
-    }
   },
   mounted() {
     this.fetchPosts();
-
-    // =======IntersectionObserver=======
-    // const options = {
-    //   rootMargin: '0px',
-    //   threshold: 1.0
-    // };
-    // const callback = (entries, observer) => {
-    //   if (entries[0].isIntersecting && this.page < this.totalPages) {
-    //     this.loadMorePosts();
-    //   }
-    // };
-    // const observer = new IntersectionObserver(callback, options);
-    // observer.observe(this.$refs.observer);
   },
   computed: {
-    sortedPosts() {
-      return [...this.posts].sort((p1, p2) =>
-        p1[this.selectedSort]?.localeCompare(p2[this.selectedSort])
-      );
-    },
-    sortedAndSearchedPosts() {
-      return this.sortedPosts.filter((p) =>
-        p.title.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
-    }
+    ...mapState({
+      posts: state => state.post.posts,
+      isPostsLoading: state => state.post.isPostsLoading,
+      selectedSort: state => state.post.selectedSort,
+      searchQuery: state => state.post.searchQuery,
+      page: state => state.post.page,
+      limit: state => state.post.limit,
+      totalPages: state => state.post.totalPages,
+      sortOptions: state => state.post.sortOptions
+    }),
+    ...mapGetters({
+      sortedPosts: 'post/sortedPosts',
+      sortedAndSearchedPosts: 'post/sortedAndSearchedPosts'
+    })
   },
 
   watch: {

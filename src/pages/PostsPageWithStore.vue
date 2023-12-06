@@ -1,10 +1,19 @@
 <template>
   <div>
     <h1>Posts page</h1>
-    <!-- <MyInput v-focus v-model="searchQuery" placeholder="Search..." /> -->
+    <MyInput
+      :model-value="searchQuery"
+      @update:model-value="setSearchQuery"
+      v-focus
+      placeholder="Search..."
+    />
     <div class="create__btn">
       <MyButton @click="showDialog"> Create post </MyButton>
-      <!-- <MySelect v-model="selectedSort" :options="sortOptions" /> -->
+      <MySelect
+        :model-value="selectedSort"
+        @update:model-value="setSelectedSort"
+        :options="sortOptions"
+      />
     </div>
     <MyDialog v-model:show="dialogVisible">
       <PostForm @create="createPost" />
@@ -12,7 +21,7 @@
     <PostList
       :posts="sortedAndSearchedPosts"
       @remove="removePost"
-      v-if="!isPostLoading"
+      v-if="!isPostsLoading"
     />
     <div v-else>Loading...</div>
     <div v-intersection="loadMorePosts"></div>
@@ -30,7 +39,7 @@
 // import axios from 'axios';
 import PostForm from '@/components/PostForm';
 import PostList from '@/components/PostList';
-import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
   name: 'App',
@@ -40,14 +49,14 @@ export default {
   },
   data() {
     return {
-      dialogVisible: false,
+      dialogVisible: false
     };
   },
   methods: {
     ...mapMutations({
       setPage: 'post/setPage',
       setSearchQuery: 'post/setSearchQuery',
-      setSelectedSort: 'post/setSelectedSort',
+      setSelectedSort: 'post/setSelectedSort'
     }),
     ...mapActions({
       loadMorePosts: 'post/loadMorePosts',
@@ -62,21 +71,21 @@ export default {
     },
     showDialog() {
       this.dialogVisible = true;
-    },
+    }
   },
   mounted() {
     this.fetchPosts();
   },
   computed: {
     ...mapState({
-      posts: state => state.post.posts,
-      isPostsLoading: state => state.post.isPostsLoading,
-      selectedSort: state => state.post.selectedSort,
-      searchQuery: state => state.post.searchQuery,
-      page: state => state.post.page,
-      limit: state => state.post.limit,
-      totalPages: state => state.post.totalPages,
-      sortOptions: state => state.post.sortOptions
+      posts: (state) => state.post.posts,
+      isPostsLoading: (state) => state.post.isPostsLoading,
+      selectedSort: (state) => state.post.selectedSort,
+      searchQuery: (state) => state.post.searchQuery,
+      page: (state) => state.post.page,
+      limit: (state) => state.post.limit,
+      totalPages: (state) => state.post.totalPages,
+      sortOptions: (state) => state.post.sortOptions
     }),
     ...mapGetters({
       sortedPosts: 'post/sortedPosts',

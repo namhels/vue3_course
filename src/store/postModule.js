@@ -3,7 +3,7 @@ import axios from "axios";
 export const postModule = {
   state: () => ({
     posts: [],
-    isPostLoading: false,
+    isPostsLoading: false,
     selectedSort: '',
     searchQuery: '',
     page: 1,

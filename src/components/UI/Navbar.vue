@@ -9,6 +9,9 @@
       <MyButton @click="$router.push('/store')" style="margin-left: 20px"
         >Store</MyButton
       >
+      <MyButton @click="$router.push('/composition')" style="margin-left: 20px"
+        >Composition</MyButton
+      >
     </div>
   </div>
 </template>
